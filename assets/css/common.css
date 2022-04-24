@@ -1,10 +1,5 @@
 .container {
   min-height: 100vh;
-  background-color: $booking-color-border151;
-  &:not(.order) {
-    padding-top: $place-header-height + $place-tab-height;
-    padding-bottom: $order-box-area-height;
-  }
 }
 
 .common-inner {
@@ -18,11 +13,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(#000, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
-  &.light {
-    background-color: rgba(0,0,0,0.4);
-  }
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.dimmed-layer.hidden {
+  opacity: 0;
+}
+
+.dimmed-layer.light {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .badge-popular {

@@ -1,5 +1,6 @@
 import { html } from 'lit';
 
+import { fetchGetRecentOrders } from '../api/index.js';
 import View from '../view.js';
 
 const TABS = [
@@ -28,13 +29,17 @@ export default class MenuPage extends View {
     super();
 
     this.tabIndex = 0;
-    this.onChangeTab = this.onChangeTab;
+    this.recentMenuItems = [];
+
+    fetchGetRecentOrders().then(
+      (response) => (this.recentMenuItems = response),
+    );
   }
 
   static get properties() {
     return {
       tabIndex: {type: Number},
-      onChangeTab: {type:Function},
+      recentMenuItems: {type: Array},
     };
   }
 
@@ -101,60 +106,25 @@ export default class MenuPage extends View {
           </div>
           <div class="recent-menu-area scroll-x">
             <ul class="recent-menu-list">
+              ${this.recentMenuItems.map(
+                ({name, price, isPopular, imageUrl}) => html`
               <li class="recent-menu-item is-ordered">
-                <a href="./detail.html">
+                <a>
                   <div class="menu-img-area">
-                    <img class="menu-img" src="https://via.placeholder.com/80" alt="메뉴사진">
+                    ${isPopular ? '<span class="badge-popular">인기</span>}' : ''}
+                    <img
+                      class="menu-img"
+                      src="${imageUrl}"
+                      alt="메뉴사진">
                   </div>
-                  <p class="menu-name">칠리베이컨 웜볼</p>
-                  <p class="menu-price">6,100원</p>
+                  <p class="menu-name">${name}</p>
+                  <p class="menu-price">${price}</p>
                 </a>
                 <a href="#" class="badge-cart">
                   <img src="../assets/images/ico-cart.svg" alt="주문하기" class="ico-cart">
                 </a>
-              </li>
-
-              <li class="recent-menu-item">
-                <a href="./detail.html">
-                  <div class="menu-img-area">
-                    <span class="badge-popular">인기</span>
-                    <img class="menu-img" src="https://via.placeholder.com/80" alt="메뉴사진">
-                  </div>
-                  <p class="menu-name">칠리베이컨 웜볼</p>
-                  <p class="menu-price">6,100원</p>
-                </a>
-                <a href="#" class="badge-cart">
-                  <img src="../assets/images/ico-cart.svg" alt="" class="ico-cart">
-                </a>
-              </li>
-
-              <li class="recent-menu-item">
-                <a href="./detail.html">
-                  <div class="menu-img-area">
-                    <span class="badge-popular">인기</span>
-                    <img class="menu-img" src="https://via.placeholder.com/80" alt="메뉴사진">
-                  </div>
-                  <p class="menu-name">칠리베이컨 웜볼</p>
-                  <p class="menu-price">6,100원</p>
-                </a>
-                <a href="#" class="badge-cart">
-                  <img src="../assets/images/ico-cart.svg" alt="" class="ico-cart">
-                </a>
-              </li>
-
-              <li class="recent-menu-item">
-                <a href="./detail.html">
-                  <div class="menu-img-area">
-                    <span class="badge-popular">인기</span>
-                    <img class="menu-img" src="https://via.placeholder.com/80" alt="메뉴사진">
-                  </div>
-                  <p class="menu-name">칠리베이컨 웜볼</p>
-                  <p class="menu-price">6,100원</p>
-                </a>
-                <a href="#" class="badge-cart">
-                  <img src="../assets/images/ico-cart.svg" alt="" class="ico-cart">
-                </a>
-              </li>
+              </li>`
+              )}
             </ul>
           </div>
         </div>

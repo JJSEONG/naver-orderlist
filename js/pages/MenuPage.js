@@ -47,8 +47,9 @@ export default class MenuPage extends View {
     this.tabIndex = index;
   }
 
-  createRenderRoot() {
-    return this;
+  redirectDetailPage(id) {
+    history.pushState(null, null, `/detail/${id}`);
+    this.dispatchEvent(new PopStateEvent('popstate'));
   }
 
   render() {
@@ -107,8 +108,10 @@ export default class MenuPage extends View {
           <div class="recent-menu-area scroll-x">
             <ul class="recent-menu-list">
               ${this.recentMenuItems.map(
-                ({name, price, isPopular, imageUrl}) => html`
-              <li class="recent-menu-item is-ordered">
+                ({id, name, price, isPopular, imageUrl}) => html`
+              <li class="recent-menu-item is-ordered"
+                @click=${() => this.redirectDetailPage(id)}
+              >
                 <a>
                   <div class="menu-img-area">
                     ${isPopular ? '<span class="badge-popular">인기</span>}' : ''}

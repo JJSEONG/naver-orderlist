@@ -1,6 +1,6 @@
 import { html } from 'lit';
 
-import { fetchGetRecentOrders } from '../api/index.js';
+import { fetchGetRecentOrders, fetchGetMenuGroups } from '../api/index.js';
 import View from '../view.js';
 
 const TABS = [
@@ -30,21 +30,33 @@ export default class MenuPage extends View {
 
     this.tabIndex = 0;
     this.recentMenuItems = [];
+    this.menuGroups = [];
+    this.selectedCategory = '추천';
 
     fetchGetRecentOrders().then(
       (response) => (this.recentMenuItems = response),
+    );
+
+    fetchGetMenuGroups().then(
+      (response) => (this.menuGroups = response),
     );
   }
 
   static get properties() {
     return {
       tabIndex: {type: Number},
+      selectedCategory: {type: String},
       recentMenuItems: {type: Array},
+      menuGroups: {type: Array},
     };
   }
 
   onChangeTab(index) {
     this.tabIndex = index;
+  }
+
+  onChangeCategory(category) {
+    this.selectedCategory = category
   }
 
   redirectDetailPage(id) {
@@ -53,6 +65,11 @@ export default class MenuPage extends View {
   }
 
   render() {
+    const categories = this.menuGroups.map(({category, categoryName}) => ({
+      category,
+      categoryName,
+    }));
+
     return html `
     <div class="order-info-area">
       <div class="common-inner">
@@ -114,11 +131,8 @@ export default class MenuPage extends View {
               >
                 <a>
                   <div class="menu-img-area">
-                    ${isPopular ? '<span class="badge-popular">인기</span>}' : ''}
-                    <img
-                      class="menu-img"
-                      src="${imageUrl}"
-                      alt="메뉴사진">
+                    ${isPopular ? html`<span class="badge-popular">인기</span>` : ''}
+                    <img class="menu-img" src="${imageUrl}" alt="메뉴사진">
                   </div>
                   <p class="menu-name">${name}</p>
                   <p class="menu-price">${price}</p>
@@ -140,36 +154,14 @@ export default class MenuPage extends View {
     <div class="menu-category-area">
       <div class="common-inner">
         <ul class="category-list scroll-x">
-          <li class="category-item">
-            <a href="#" class="category-tab is-active">추천</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">시즈널 메뉴</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">시그니처 샐러드</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">웜볼</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">샌드</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">랩</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">나만의 샐러드</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">스프</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">음료</a>
-          </li>
-          <li class="category-item">
-            <a href="#" class="category-tab">드레싱 추가</a>
-          </li>
+          ${categories.map(
+            ({ category, categoryName }) => 
+            html`<li class="category-item">
+              <a
+              @click=${() => this.onChangeCategory(category)}
+              class="category-tab ${category === this.selectedCategory ? 'is-active' : ''}">${categoryName}</a>
+            </li>`,
+          )}
         </ul>
       </div>
     </div>

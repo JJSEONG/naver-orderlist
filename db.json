@@ -11,7 +11,7 @@
       "id": 2,
       "name": "웜볼 2",
       "imageUrl": "https://ldb-phinf.pstatic.net/20200416_252/1587007251652svUkx_PNG/%C4%A5%B8%AE%BA%A3%C0%CC%C4%C1_%BF%FA%BA%BC.png?type=f459_345_60_sharpen",
-      "isPopular": false,
+      "isPopular": true,
       "price": 6800
     },
     {
@@ -29,7 +29,7 @@
       "price": 6900
     }
   ],
-  "menuGroups": [
+  "menu-groups": [
     {
       "category": "recommends",
       "categoryName": "추천",

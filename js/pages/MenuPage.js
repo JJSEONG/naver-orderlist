@@ -56,7 +56,17 @@ export default class MenuPage extends View {
   }
 
   onChangeCategory(category) {
-    this.selectedCategory = category
+    this.selectedCategory = category;
+
+    const y = document
+      .querySelector(`[data-scroll-id=${category}]`)
+      .getBoundingClientRect().top;
+
+    window.scrollBy({
+      top: y - 140,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
 
   redirectDetailPage(id) {

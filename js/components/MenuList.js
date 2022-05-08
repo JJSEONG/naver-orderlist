@@ -6,6 +6,7 @@ export default class MenuList extends View {
     super();
 
     this.menuGroup = menuGroup;
+    this.isClosed = false;
   }
 
   static get properties() {
@@ -13,16 +14,25 @@ export default class MenuList extends View {
       menuGroup: {
         type: Object,
       },
+      isClosed: {
+        type: Boolean,
+      }
     };
+  }
+
+  toggle() {
+    this.isClosed = !this.isClosed
   }
 
   render() {
     return html `
-    <div class="menu-list-area">
+    <div
+      data-scroll-id=${this.menuGroup.category}
+      class="menu-list-area ${this.isClosed ? 'is-closed' : ''}">
       <div class="common-inner">
         <div class="menu-category">
           <p class="title">${this.menuGroup.categoryName}</p>
-          <button class="btn-toggle">
+          <button class="btn-toggle" @click=${this.toggle}>
             <img
               class="ico-arrow"
               src="./assets/images/ico-arrow.svg"

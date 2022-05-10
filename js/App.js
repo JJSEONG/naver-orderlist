@@ -19,10 +19,16 @@ export default class App extends View {
     return this;
   }
 
+  route() {
+    switch (this.currentPage) {
+      case 'detail':
+        return html`<detail-page></detail-page>`;
+      default:
+        return html`<menu-page></menu-page>`;
+    }
+  }
+
   render() {
-    return html`<div className="container">
-      <order-header></order-header>
-      <menu-page></menu-page>
-    </div>`;
+    return this.removeAttribute()
   }
 }

@@ -2,21 +2,19 @@ import { html } from 'lit';
 import View from '../view.js';
 
 export default class MenuList extends View {
-  constructor(menuGroup) {
+  constructor(menuGroup, redirectDetailPage) {
     super();
 
     this.menuGroup = menuGroup;
     this.isClosed = false;
+    this.redirectDetailPage = redirectDetailPage;
   }
 
   static get properties() {
     return {
-      menuGroup: {
-        type: Object,
-      },
-      isClosed: {
-        type: Boolean,
-      }
+      menuGroup: {type: Object},
+      isClosed: {type: Boolean},
+      redirectDetailPage: {type: Function},
     };
   }
 
@@ -44,7 +42,7 @@ export default class MenuList extends View {
         <ul class="menu-list">
           ${this.menuGroup.items.map(
             (item) => html`
-              <li class="menu-item">
+              <li class="menu-item" @click=${ () => this.redirectDetailPage(item.id)}>
                 <a href="./detail.html" class="menu-detail">
                   <div class="menu-img-area">
                     <img

@@ -60,7 +60,7 @@ export default class MenuPage extends View {
 
   redirectDetailPage(id) {
     history.pushState(null, null, `/detail/${id}`);
-    this.dispatchEvent(new PopStateEvent('popstate'));
+    dispatchEvent(new PopStateEvent('popstate'));
   }
 
   render() {

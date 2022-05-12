@@ -37,7 +37,7 @@ export default class DetailPage extends View {
   render() {
     return html`
     <div class="container">
-      <order-haeder></order-header>
+      <order-header></order-header>
 
       <div class="menu-detail-area">
         <!-- 메뉴 이미지 영역 -->
@@ -51,18 +51,29 @@ export default class DetailPage extends View {
         <div class="menu-info-area">
           <div class="common-inner">
             <p class="menu-name-group">
-              <span class="menu-name">메뉴이름</span>
-              <span class="badge-popular">인기</span>
+              <span class="menu-name">${this.menu.name}</span>
+              ${
+                this.menu.isPopular
+                ? html`<span class="badge-popular">인기</span>` : ''
+              }
             </p>
 
             <!-- 메뉴 정보 영역 -->
             <div class="menu-info-group">
-              <span class="menu-price">9,999원</span>
-              <span class="menu-grade"><img src="../assets/images/ico-star.svg" alt="" class="ico-star">5.00</span>
-              <span class="menu-number-of-order">주문수<em>999</em></span>
+              <span class="menu-price">${this.menu.price}원</span>
+              <span class="menu-grade"><img
+                  src="../assets/images/ico-star.svg"
+                  alt=""
+                  class="ico-star"
+                />${this.menu.reviewPoint}</span>
+              <span class="menu-number-of-order">주문수<em>${
+                this.menu.orderCount
+              }</em></span>
             </div>
 
-            <p class="menu-desc">메뉴에 대한 간단한 설명이 적혀있습니다. 메뉴에 대한 간단한 설명이 적혀있습니다.</p>
+            <p class="menu-desc">
+              ${this.menu.description}
+            </p>
             <!-- // 메뉴 정보 영역 -->
 
             <!-- 메뉴 주문 영역 -->

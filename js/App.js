@@ -7,7 +7,8 @@ export default class App extends View {
     super();
 
     this.currentPage = 'menu';
-    
+    this.orderTypeIndex = 0;
+
     window.onpopstate = () => {
       const [, page] = location.pathname.split('/');
 
@@ -20,13 +21,18 @@ export default class App extends View {
       currentPage: {
         type: String,
       },
+      orderTypeIndex: {
+        type: Number,
+      }
     };
   }
 
   route() {
     switch (this.currentPage) {
       case 'detail':
-        return html`<detail-page></detail-page>`;
+        return html`<detail-page
+          .orderTypeIndex=${this.orderTypeIndex}
+        ></detail-page>`;
       default:
         return html`<menu-page></menu-page>`;
     }

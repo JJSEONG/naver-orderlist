@@ -16,10 +16,12 @@ const DEFAULT_MENU = {
 };
 
 export default class DetailPage extends View {
-  constructor() {
+  constructor(orderTypeIndex) {
     super();
 
     this.menu = DEFAULT_MENU
+    this.orderTypeIndex = orderTypeIndex;
+    this.orderType = orderTypeIndex === 0 ? '포장' : '매장';
 
     const [menuID] = location.pathname.split('/').splice(-1);
 
@@ -30,6 +32,12 @@ export default class DetailPage extends View {
     return {
       menu: {
         type: Object,
+      },
+      orderTypeIndex: {
+        type: Number,
+      },
+      orderType: {
+        type: String,
       },
     };
   }
@@ -88,8 +96,16 @@ export default class DetailPage extends View {
                   주문
                 </div>
                 <div class="tab-switch-box" role="tablist">
-                  <a href="#" class="tab-switch is-active" role="tab">🎁&nbsp;&nbsp;포장</a>
-                  <a href="#" class="tab-switch" role="tab">🍽&nbsp;&nbsp;매장</a>
+                  <a
+                    @click=${() => (this.orderType = '포장')}
+                    class="tab-switch ${this.orderType === '포장' ? 'is-active' : ''}"
+                      role="tab"
+                    >🎁&nbsp;&nbsp;포장</a>
+                  <a
+                    @click=${() => (this.orderType = '매장')}
+                    class="tab-switch ${this.orderType === '매장' ? 'is-active' : ''}"
+                      role="tab"
+                    >🍽&nbsp;&nbsp;매장</a>
                 </div>
               </div>
               <div class="type-amount">

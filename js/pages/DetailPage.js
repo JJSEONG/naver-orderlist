@@ -134,7 +134,10 @@ export default class DetailPage extends View {
                   onDecrease: this.onDecreaseAmount,
                 })}
               </div>
-              <button class="btn-order" onClick="popupOpen()">1개 담기 9,999원</button>
+              <button class="btn-order">
+                ${this.menuAmount}개 담기
+                ${this.menu.price * this.menuAmount}원
+              </button>
             </div>
             <!-- // 메뉴 주문 영역 -->
           </div>

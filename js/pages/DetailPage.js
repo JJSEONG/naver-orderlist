@@ -3,6 +3,8 @@ import { html } from 'lit';
 import View from '../view.js'
 import { fetchGetMenu } from '../api/index.js';
 
+import SpinButton from '../components/SpinButton.js';
+
 const DEFAULT_MENU = {
   id: 1,
   name: "음식 이름",
@@ -20,6 +22,7 @@ export default class DetailPage extends View {
     super();
 
     this.menu = DEFAULT_MENU
+    this.menuAmount = 1;
     this.orderTypeIndex = orderTypeIndex;
     this.orderType = orderTypeIndex === 0 ? '포장' : '매장';
 
@@ -33,6 +36,9 @@ export default class DetailPage extends View {
       menu: {
         type: Object,
       },
+      menuAmount: {
+        type: Number,
+      },
       orderTypeIndex: {
         type: Number,
       },
@@ -40,6 +46,18 @@ export default class DetailPage extends View {
         type: String,
       },
     };
+  }
+
+  onIncreaseAmount() {
+    this.menuAmount = this.menuAmount + 1;
+  }
+
+  onDecreaseAmount() {
+    if (this.menuAmount <= 1) {
+      return;
+    }
+
+    this.menuAmount = this.menuAmount - 1;
   }
 
   render() {
@@ -110,14 +128,13 @@ export default class DetailPage extends View {
               </div>
               <div class="type-amount">
                 <div class="title">수량</div>
-                <div class="amount-select">
-                  <button class="btn-minus" aria-label="빼기" disabled></button>
-                  <span class="amount disabled">1</span>
-                  <button class="btn-plus" aria-label="더하기"></button>
-                </div>
+                ${SpinButton({
+                  count: this.menuAmount,
+                  onIncrease: this.onIncreaseAmount,
+                  onDecrease: this.onDecreaseAmount,
+                })}
               </div>
               <button class="btn-order" onClick="popupOpen()">1개 담기 9,999원</button>
-              <!-- <button class="btn-order" disabled>지금 주문 가능한 시간이 아닙니다.</button> -->
             </div>
             <!-- // 메뉴 주문 영역 -->
           </div>

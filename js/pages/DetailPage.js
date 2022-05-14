@@ -17,15 +17,23 @@ const DEFAULT_MENU = {
   reviews: [],
 };
 
+const DEFAULT_OPTION = {
+  id: 1,
+  baseOptions: [],
+  toppingSelectOptions: [],
+  toppingAmountSelectOptions: [],
+};
+
 export default class DetailPage extends View {
   constructor(orderTypeIndex) {
     super();
 
-    this.menu = DEFAULT_MENU
+    this.menu = DEFAULT_MENU;
     this.menuAmount = 1;
     this.orderTypeIndex = orderTypeIndex;
     this.orderType = orderTypeIndex === 0 ? '포장' : '매장';
     this.isPopupOpen = false;
+    this.option = DEFAULT_OPTION;
 
     const [menuID] = location.pathname.split('/').splice(-1);
 
@@ -49,6 +57,9 @@ export default class DetailPage extends View {
       isPopupOpen: {
         type: Boolean,
       },
+      option: {
+        type: Object,
+      }
     };
   }
 

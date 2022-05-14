@@ -146,7 +146,7 @@ export default class DetailPage extends View {
                   onDecrease: this.onDecreaseAmount,
                 })}
               </div>
-              <button class="btn-order @click=${this.openOrderPopup}">
+              <button class="btn-order" @click=${this.openOrderPopup}>
                 ${this.menuAmount}개 담기
                 ${this.menu.price * this.menuAmount}원
               </button>

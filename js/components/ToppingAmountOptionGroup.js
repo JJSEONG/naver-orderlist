@@ -1,6 +1,6 @@
-import { html } from "lit-element";
-import SpinButton from "../templates/spin-button";
-import View from "../view";
+import { html } from "lit";
+import SpinButton from "./SpinButton.js";
+import View from "../view.js";
 
 export default class ToppingBaseOptionGroup extends View {
   constructor(items = [], onItemAmountIncrease, onItemAmountDecrease) {

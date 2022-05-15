@@ -1,5 +1,5 @@
-import { html } from "lit-element";
-import View from "../view";
+import { html } from "lit";
+import View from "../view.js";
 
 export default class ToppingSelectOptionGroup extends View {
   constructor(items = [], onToggleOption) {

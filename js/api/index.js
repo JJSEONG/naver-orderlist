@@ -22,4 +22,17 @@ async function fetchGetMenu(menuID) {
   return data;
 }
 
-export { fetchGetRecentOrders, fetchGetMenuGroups, fetchGetMenu };
+async function fetchGetMenuOptions(menuID) {
+  const response = await fetch('http://localhost:3000/options/' + menuID);
+
+  const data = await response.json();
+
+  return data;
+}
+
+export {
+  fetchGetRecentOrders,
+  fetchGetMenuGroups,
+  fetchGetMenu,
+  fetchGetMenuOptions,
+};

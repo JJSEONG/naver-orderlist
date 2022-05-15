@@ -1,4 +1,5 @@
 import { html } from "lit";
+import { getKoreanMoneyString } from "../../utils/currency";
 import SpinButton from "./SpinButton.js";
 import View from "../view.js";
 
